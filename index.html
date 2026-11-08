@@ -1,147 +1,421 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بطولة دوري ابطال فيفا - النسخة التانية</title>
+<title>دوري الأبطال</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
-body{background:#0F1E2E;color:#fff;padding:14px}
-.header{text-align:center;background:linear-gradient(135deg,#00D26A,#00A651,#0A3D62);color:#fff;padding:28px 15px;border-radius:18px;margin-bottom:14px;box-shadow:0 8px 20px rgba(0,0,0,.4)}
-.header h1{font-size:28px;margin-bottom:6px}
-.header p{font-size:15px;opacity:.95}
-.president{background:#fff;color:#0F1E2E;padding:18px;border-radius:16px;text-align:center;margin-bottom:14px}
-.president h2{color:#00A651;font-size:18px}
-.president .name{font-size:26px;font-weight:900;margin:8px 0}
-.president p{font-size:13px;color:#555}
-.card{background:#162E44;border-radius:16px;padding:15px;margin-bottom:14px;border:1px solid #23405A}
-.card h3{color:#00E676;margin-bottom:12px;font-size:18px;border-bottom:1px solid #23405A;padding-bottom:8px}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:10px 6px;text-align:center;border-bottom:1px solid #23405A}
-th{color:#00E676}
-.match{background:#0F1E2E;padding:13px;border-radius:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;border:1px solid #23405A}
-.match b{font-size:14px}
-.score{background:#00E676;color:#0F1E2E;padding:5px 12px;border-radius:20px;font-weight:900;font-size:13px}
-.badge{background:#fff;color:#0F1E2E;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:bold}
-.player{display:flex;align-items:center;gap:10px;padding:11px;background:#0F1E2E;border-radius:11px;margin-bottom:8px;border:1px solid #23405A}
-.player span{width:32px;height:32px;background:#00E676;color:#0F1E2E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
-.btn{background:#00E676;color:#0F1E2E;border:none;padding:13px 20px;border-radius:25px;font-weight:900;width:100%;font-size:16px;cursor:pointer;margin-top:10px}
-.footer{text-align:center;color:#7A90A5;font-size:12px;margin-top:10px}
+  *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+  body{margin:0;background:#0f172a;color:#fff;padding:14px}
+  .container{max-width:920px;margin:auto}
+  h1{text-align:center;font-size:26px;margin:8px 0 2px}
+  p.sub{text-align:center;color:#94a3b8;margin:0 0 16px;font-size:14px}
+  .tabs{display:flex;gap:8px;margin-bottom:14px}
+  .tab{flex:1;padding:12px;border-radius:12px;border:1px solid #334155;background:#1e293b;color:#fff;cursor:pointer;font-weight:bold}
+  .tab.active{background:#facc15;color:#000}
+  .card{background:#1e293b;border-radius:16px;padding:16px;margin-bottom:16px;border:1px solid #334155;display:none}
+  .card.show{display:block}
+  h2{margin:0 0 12px;font-size:19px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:9px 6px;text-align:center;border-bottom:1px solid #334155}
+  th{color:#facc15}
+  .player-cell{display:flex;align-items:center;gap:8px;text-align:right;justify-content:start}
+  .avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #facc15;flex-shrink:0;background:#fff}
+  .match{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:12px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .team{flex:1;text-align:center;font-weight:bold;font-size:14px;display:flex;align-items:center;justify-content:center;gap:6px}
+  .team img{width:32px;height:32px;border-radius:50%;object-fit:cover}
+  .scores{display:flex;align-items:center;gap:6px}
+  input{width:52px;height:38px;text-align:center;font-size:18px;font-weight:bold;border-radius:8px;border:1px solid #475569;background:#1e293b;color:#fff}
+  input.small{width:60px}
+  .btn{background:#facc15;color:#000;border:none;padding:11px;border-radius:10px;font-weight:bold;cursor:pointer;width:100%;font-size:16px;margin-top:10px}
+  .btn2{background:transparent;color:#f87171;border:1px solid #f87171;padding:8px;border-radius:10px;cursor:pointer;width:100%;margin-top:8px}
+  .badge{background:#22c55e;color:#000;padding:2px 8px;border-radius:20px;font-size:11px}
+  .gold{background:#facc15;color:#000;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:bold}
+  .day-title{background:#facc15;color:#000;padding:6px 12px;border-radius:20px;display:inline-block;font-weight:bold;margin:14px 0 10px}
+  .ko-box{background:#0f172a;border:2px dashed #facc15;border-radius:14px;padding:14px;margin-bottom:12px;text-align:center}
+  .champion{font-size:22px;text-align:center;background:linear-gradient(90deg,#facc15,#f97316);color:#000;padding:16px;border-radius:14px;font-weight:bold;margin-top:12px;display:none}
+  .scorer-row{display:flex;align-items:center;gap:10px;background:#0f172a;padding:10px;border-radius:12px;margin-bottom:8px}
+  .scorer-row img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+  .saved{color:#22c55e;font-size:12px;text-align:center;margin-top:6px;height:16px}
+  .gd-pos{color:#22c55e;font-weight:bold}
+  .gd-neg{color:#f87171;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🏆 دوري الأبطال - CR7 🆚 M10</h1>
+  <p class="sub">اكتب النتيجة والجدول وفرق الأهداف هيتحسبوا لوحدهم ✅</p>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('league',this)">📊 الدوري</button>
+    <button class="tab" onclick="showTab('scorers',this)">⚽ الهدافين</button>
+    <button class="tab" onclick="showTab('knockout',this)">🏆 خروج المغلوب</button>
+  </div>
+  <div id="league" class="card show">
+    <h2>📊 ترتيب المجموعة - أوتوماتك</h2>
+    <table><thead><tr><th>#</th><th>اللاعب</th><th>لعب</th><th>فوز</th><th>خسارة</th><th>له</th><th>عليه</th><th>فرق</th><th>نقط</th></tr></thead><tbody id="standings"></tbody></table>
+    <h2 style="margin-top:18px">⚽ المواجهات - اكتب النتيجة بس</h2>
+    <div id="fixtures"></div>
+    <div id="savedMsg" class="saved"></div>
+    <button class="btn2" onclick="resetAll()">مسح كل النتايج</button>
+  </div>
+  <div id="scorers" class="card">
+    <h2>⚽ أفضل هداف</h2>
+    <div id="scorerList"></div>
+  </div>
+  <div id="knockout" class="card">
+    <h2>🏆 خروج المغلوب - أول 4 بيصعدوا</h2>
+    <p style="color:#94a3b8;font-size:13px">نصف النهائي: الأول × الرابع - التاني × التالت.</p>
+    <div id="koMatches"></div>
+    <div id="champion" class="champion"></div>
+  </div>
+</div>
+<script>
+const players = ["محمد رمضان","محمد فتحي","كريم","عمر","عمر احمد تاج","يوسف صبري","مصطفي","ماهر"];
+const IMGS = {
+  cr: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2023.jpg",
+  messi: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg"
+};
+const CUSTOM = { "محمد رمضان": "ramadan.jpg", "محمد فتحي": "fathy.jpg", "كريم": "kareem.jpg", "عمر": "omar.jpg", "مصطفي": "mostafa.jpg", "ماهر": "maher.jpg" };
+const FIXED = { "عمر احمد تاج": "messi", "يوسف صبري": "cr" };
+let avatars = JSON.parse(localStorage.getItem('avatars')||'{}');
+players.forEach((p,i)=>{ if(!avatars[p]) avatars[p] = i%2===0 ? 'cr' : 'messi'; });
+const matches = [
+  {day:1, a:"محمد رمضان", b:"مصطفي"},
+  {day:1, a:"محمد فتحي", b:"ماهر"},
+  {day:1, a:"محمد رمضان", b:"ماهر"},
+  {day:1, a:"محمد فتحي", b:"عمر احمد تاج"},
+  {day:1, a:"عمر احمد تاج", b:"مصطفي"},
+  {day:1, a:"كريم", b:"عمر"},
+  {day:2, a:"كريم", b:"يوسف صبري"},
+  {day:2, a:"عمر", b:"يوسف صبري"},
+  {day:2, a:"يوسف صبري", b:"محمد فتحي"},
+  {day:2, a:"كريم", b:"ماهر"},
+  {day:2, a:"عمر", b:"مصطفي"},
+  {day:2, a:"محمد رمضان", b:"عمر احمد تاج"},
+];
+let DEFAULT_RESULTS = { "0": {a:"3", b:"0"} };
+let savedResults = JSON.parse(localStorage.getItem('results')||'{}');
+let results = {...DEFAULT_RESULTS, ...savedResults};
+let goals = JSON.parse(localStorage.getItem('goals')||'{}');
+let ko = JSON.parse(localStorage.getItem('ko')||'{}');
+function showTab(id,btn){
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('show'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('show'); btn.classList.add('active');
+  if(id==='knockout') renderKO();
+}
+function imgOf(p){ if(CUSTOM[p]) return CUSTOM[p]; if(FIXED[p]) return IMGS[FIXED[p]]; return IMGS[avatars[p]]; }
+function labelOf(p){ if(CUSTOM[p]) return ''; if(FIXED[p]) return FIXED[p]==='cr' ? 'CR7' : 'M10'; return avatars[p]==='cr' ? 'CR7' : 'M10'; }
+function getStats(){
+  let s={}; players.forEach(p=>s[p]={p:0,w:0,l:0,gf:0,ga:0,gd:0,pts:0});
+  matches.forEach((m,i)=>{
+    let r = results[i];
+    if(!r || r.a==='' || r.b==='' || r.a==null || r.b==null) return;
+    let a=parseInt(r.a); let b=parseInt(r.b);
+    if(isNaN(a) || isNaN(b)) return;
+    s[m.a].p++; s[m.b].p++;
+    s[m.a].gf+=a; s[m.a].ga+=b; s[m.b].gf+=b; s[m.b].ga+=a;
+    s[m.a].gd = s[m.a].gf - s[m.a].ga;
+    s[m.b].gd = s[m.b].gf - s[m.b].ga;
+    if(a>b){ s[m.a].w++; s[m.a].pts+=3; s[m.b].l++; }
+    else if(b>a){ s[m.b].w++; s[m.b].pts+=3; s[m.a].l++; }
+    else { s[m.a].pts+=1; s[m.b].pts+=1; }
+  });
+  return s;
+}
+function getSorted(){
+  let s=getStats();
+  return players.map(p=>({name:p,...s[p]})).sort((x,y)=> y.pts - x.pts || y.gd - x.gd || y.gf - x.gf || y.w - x.w);
+}
+function renderStandings(){
+  let arr=getSorted();
+  document.getElementById('standings').innerHTML = arr.map((r,idx)=>{
+    let gdClass = r.gd>0 ? 'gd-pos' : r.gd<0 ? 'gd-neg' : '';
+    let gdText = r.gd>0 ? '+'+r.gd : ''+r.gd;
+    return `<tr><td>${idx+1}</td><td><div class="player-cell"><img class="avatar" src="${imgOf(r.name)}"><span>${r.name}</span>${CUSTOM[r.name]||FIXED[r.name]?`<span style="font-size:11px;background:#334155;padding:3px 8px;border-radius:20px">${labelOf(r.name)}</span>`:''}${idx<4?'<span class="badge">صعد ✅</span>':''}</div></td><td>${r.p}</td><td>${r.w}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td class="${gdClass}">${gdText}</td><td><b>${r.pts}</b></td></tr>`;
+  }).join('');
+}
+function renderFixtures(){
+  let html=''; let last=0;
+  matches.forEach((m,i)=>{
+    if(m.day!==last){ html+=`<div class="day-title">اليوم ${m.day===1?'الأول':'التاني'}</div>`; last=m.day; }
+    html+=`<div class="match"><div class="team"><img src="${imgOf(m.a)}">${m.a}</div><div class="scores"><input type="number" id="a${i}" value="${results[i]?.a??''}" oninput="onScore(${i},'a',this.value)"> <span>VS</span> <input type="number" id="b${i}" value="${results[i]?.b??''}" oninput="onScore(${i},'b',this.value)"></div><div class="team"><img src="${imgOf(m.b)}">${m.b}</div></div>`;
+  });
+  document.getElementById('fixtures').innerHTML=html;
+}
+function onScore(i, side, val){
+  if(!results[i]) results[i]={a:'',b:''};
+  results[i][side]=val;
+  localStorage.setItem('results', JSON.stringify(results));
+  renderStandings();
+  let msg=document.getElementById('savedMsg');
+  if(msg){ msg.textContent='اتحفظ واتحسب ✅'; setTimeout(()=>{msg.textContent=''},1500); }
+}
+function renderScorers(){
+  let arr = players.map(p=>({name:p,g: goals[p]||0})).sort((a,b)=>b.g-a.g);
+  document.getElementById('scorerList').innerHTML = arr.map((r,idx)=>`<div class="scorer-row"><span style="font-weight:bold;width:22px">${idx+1}</span><img src="${imgOf(r.name)}"><span style="flex:1;font-weight:bold">${r.name} ${idx===0&&r.g>0?'<span class="gold">👑 الهداف</span>':''}</span><span>⚽</span><input class="small" type="number" min="0" value="${r.g}" oninput="goals['${r.name}']=parseInt(this.value||0); localStorage.setItem('goals', JSON.stringify(goals)); renderScorers();"></div>`).join('');
+}
+function renderKO(){
+  let top = getSorted().slice(0,4);
+  let s1a = top[0]?.name || 'الأول';
+  let s1b = top[3]?.name || 'الرابع';
+  let s2a = top[1]?.name || 'التاني';
+  let s2b = top[2]?.name || 'التالت';
+  let w1 = '', w2='';
+  if(ko.s1a!==undefined && ko.s1b!==undefined && ko.s1a!=='' && ko.s1b!==''){ w1 = ko.s1a>ko.s1b ? s1a : ko.s1b>ko.s1a ? s1b : 'تعادل'; }
+  if(ko.s2a!==undefined && ko.s2b!==undefined && ko.s2a!=='' && ko.s2b!==''){ w2 = ko.s2a>ko.s2b ? s2a : ko.s2b>ko.s2a ? s2b : 'تعادل'; }
+  let html = `
+  <div class="ko-box"><b>نصف نهائي 1</b><br><br>
+    <div class="team"><img src="${imgOf(s1a)}">${s1a} <input type="number" id="s1a" value="${ko.s1a??''}" oninput="saveKO()"> VS <input type="number" id="s1b" value="${ko.s1b??''}" oninput="saveKO()"> <img src="${imgOf(s1b)}">${s1b}</div>
+    <div style="margin-top:8px;color:#22c55e;font-weight:bold">الفايز: ${w1||'—'}</div></div>
+  <div class="ko-box"><b>نصف نهائي 2</b><br><br>
+    <div class="team"><img src="${imgOf(s2a)}">${s2a} <input type="number" id="s2a" value="${ko.s2a??''}" oninput="saveKO()"> VS <input type="number" id="s2b" value="${ko.s2b??''}" oninput="saveKO()"> <img src="${imgOf(s2b)}">${s2b}</div>
+    <div style="margin-top:8px;color:#22c55e;font-weight:bold">الفايز: ${w2||'—'}</div></div>
+  <div class="ko-box" style="border-style:solid"><b>🏆 النهائي</b><br><br>
+    <div class="team">${w1||'فايز 1'} <input type="number" id="fa" value="${ko.fa??''}" oninput="saveKO()"> VS <input type="number" id="fb" value="${ko.fb??''}" oninput="saveKO()"> ${w2||'فايز 2'}</div></div>`;
+  document.getElementById('koMatches').innerHTML=html;
+  let champEl=document.getElementById('champion');
+  if(w1 && w2 && w1!=='تعادل' && w2!=='تعادل' && ko.fa!==undefined && ko.fb!==undefined && ko.fa!=='' && ko.fb!==''){
+    let champ = ko.fa>ko.fb ? w1 : ko.fb>ko.fa ? w2 : '';
+    if(champ){ champEl.style.display='block'; champEl.innerHTML=`🏆 البطل: ${champ} 🎉`; } else champEl.style.display='none';
+  } else champEl.style.display='none';
+}
+function saveKO(){
+  ko={ s1a:document.getElementById('s1a').value, s1b:document.getElementById('s1b').value, s2a:document.getElementById('s2a').value, s2b:document.getElementById('s2b').value, fa:document.getElementById('fa').value, fb:document.getElementById('fb').value };
+  localStorage.setItem('ko', JSON.stringify(ko)); renderKO();
+}
+function resetAll(){
+  if(!confirm('تمسح كل حاجة؟')) return;
+  results={}; goals={}; ko={}; localStorage.clear(); location.reload();
+}
+renderFixtures(); renderStandings(); renderScorers();
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دوري الأبطال - التصنيف الأوتوماتيك</title>
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{background:#0a1128;color:#fff;margin:0;padding:15px}
+h1{text-align:center;color:#FFD700;margin:5px 0}
+.subtitle{text-align:center;color:#aaa;font-size:13px;margin-bottom:15px}
+.card{background:#131f45;border:1px solid #FFD70033;border-radius:15px;padding:15px;margin-bottom:15px}
+table{width:100%;border-collapse:collapse;text-align:center;font-size:14px}
+th{background:#FFD700;color:#000;padding:10px}
+td{padding:10px;border-bottom:1px solid #ffffff22}
+tr:first-child td{background:#FFD70022;color:#FFD700;font-weight:bold}
+input,select,button{padding:10px;border-radius:10px;border:none;font-size:14px}
+input,select{background:#0a1128;color:#fff;border:1px solid #ffffff33;width:100%}
+button{background:#FFD700;color:#000;font-weight:bold;cursor:pointer;width:100%;margin-top:8px}
+.flex{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+@media(max-width:600px){.flex{grid-template-columns:1fr 1fr}}
+.badge{background:#FFD700;color:#000;padding:2px 8px;border-radius:20px;font-size:12px}
+.delete{background:#ff4444;color:#fff;padding:5px 10px;border-radius:8px;cursor:pointer}
 </style>
 </head>
 <body>
 
-<div class="header">
-<h1>بطولة دوري ابطال فيفا</h1>
-<p>النسخة التانية - 10 لاعيبة - 2 مجموعات</p>
-<p style="margin-top:8px;font-size:13px">كل لاعب هيلعب 4 ماتشات في المجموعات</p>
-</div>
+<h1>🏆 دوري الأبطال</h1>
+<div class="subtitle">التصنيف - RANKING | أوتوماتيك 100%</div>
 
-<div class="president">
-<h2>رئيس البطولة</h2>
-<div class="name">عبدالله رمضان</div>
-<p>المنظم - الحكم - المسؤول عن كل حاجة</p>
-</div>
-
+<!-- جدول التصنيف -->
 <div class="card">
-<h3>نظام البطولة</h3>
-<p style="line-height:1.9;font-size:14px">
-- <b>المجموعات:</b> كل مجموعة يومين<br>
-- <b>ربع النهائي:</b> يوم واحد - 4 ماتشات<br>
-- <b>نص النهائي:</b> يوم واحد - ماتشين<br>
-- <b>النهائي + التالت:</b> يوم واحد<br>
-- <b>اللي بيصعد:</b> اول 4 من كل مجموعة<br>
-- <b>اللي يوصل النهائي:</b> هيلعب 7 ماتشات كل البطولة
-</p>
-</div>
-
-<div class="card">
-<h3>المجموعة A</h3>
+<h3 style="margin:0 0 10px">📊 جدول التصنيف - أوتوماتيك</h3>
 <table>
-<tr><th>المركز</th><th>اللاعب</th><th>لعب</th><th>فوز</th><th>نقاط</th></tr>
-<tr><td>1</td><td>محمد فتحي</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>2</td><td>مصطفي</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>3</td><td>ماهر</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>4</td><td>لاعب 4 - لسه</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>5</td><td>لاعب 5 - لسه</td><td>0</td><td>0</td><td>0</td></tr>
+<thead><tr><th>الترتيب</th><th>اللاعب</th><th>التصنيف</th><th>النقاط</th><th>فوز</th><th>تعادل</th><th>خسارة</th><th>فرق أهداف</th></tr></thead>
+<tbody id="ranking"></tbody>
 </table>
+<p style="font-size:12px;color:#aaa">القوانين: فوز = 10 نقط • تعادل = 5 نقط • أعلى نتيجة = +1 نقطة زيادة • التصنيف = الترتيب الأوتوماتيك</p>
 </div>
 
+<!-- إضافة ماتش -->
 <div class="card">
-<h3>المجموعة B</h3>
-<table>
-<tr><th>المركز</th><th>اللاعب</th><th>لعب</th><th>فوز</th><th>نقاط</th></tr>
-<tr><td>1</td><td>كريم</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>2</td><td>عمر</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>3</td><td>لاعب 3 - لسه</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>4</td><td>لاعب 4 - لسه</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>5</td><td>لاعب 5 - لسه</td><td>0</td><td>0</td><td>0</td></tr>
-</table>
+<h3 style="margin:0 0 10px">➕ أضف نتيجة مباراة</h3>
+<div class="flex">
+<select id="day"><option>اليوم الأول</option><option>اليوم الثاني</option><option>اليوم الثالث</option></select>
+<select id="p1"></select>
+<input type="number" id="g1" placeholder="أهداف اللاعب 1" min="0">
+<select id="p2"></select>
+</div>
+<div class="flex" style="margin-top:8px;grid-template-columns:1fr">
+<input type="number" id="g2" placeholder="أهداف اللاعب 2" min="0">
+<button onclick="addMatch()">إضافة النتيجة ✅ والتصنيف هيتحدث لوحده</button>
+</div>
 </div>
 
+<!-- نتايج المباريات -->
 <div class="card">
-<h3>ماتشات المجموعة A - اليوم الاول</h3>
-<div class="match"><b>محمد فتحي</b><span class="score">VS</span><b>مصطفي</b></div>
-<div class="match"><b>ماهر</b><span class="score">VS</span><b>لاعب 4</b></div>
-<div class="match"><b>محمد فتحي</b><span class="score">VS</span><b>ماهر</b></div>
-<div class="match"><b>مصطفي</b><span class="score">VS</span><b>لاعب 5</b></div>
-<div class="match"><b>لاعب 4</b><span class="score">VS</span><b>لاعب 5</b></div>
+<h3>📅 نتايج المباريات</h3>
+<div id="matches"></div>
 </div>
 
-<div class="card">
-<h3>ماتشات المجموعة A - اليوم التاني</h3>
-<div class="match"><b>محمد فتحي</b><span class="score">VS</span><b>لاعب 4</b></div>
-<div class="match"><b>مصطفي</b><span class="score">VS</span><b>ماهر</b></div>
-<div class="match"><b>محمد فتحي</b><span class="score">VS</span><b>لاعب 5</b></div>
-<div class="match"><b>مصطفي</b><span class="score">VS</span><b>لاعب 4</b></div>
-<div class="match"><b>ماهر</b><span class="score">VS</span><b>لاعب 5</b></div>
+<script>
+const players = ["محمد رمضان","كريم","محمد فتحي","عمر احمد تاج","يوسف صبري","ماهر","عمر","مصطفي"];
+let matches = JSON.parse(localStorage.getItem("matches") || "[]");
+
+const p1 = document.getElementById("p1"), p2 = document.getElementById("p2");
+players.forEach(p=>{ p1.innerHTML+=<option>${p}</option>; p2.innerHTML+=<option>${p}</option>; });
+p2.selectedIndex = 1;
+
+function addMatch(){
+  const day = document.getElementById("day").value;
+  const a = p1.value, b = p2.value;
+  const ga = parseInt(document.getElementById("g1").value);
+  const gb = parseInt(document.getElementById("g2").value);
+  if(a===b || isNaN(ga) || isNaN(gb)) return alert("اختار لاعبين مختلفين واكتب النتيجة");
+  matches.push({day,a,b,ga,gb});
+  localStorage.setItem("matches", JSON.stringify(matches));
+  document.getElementById("g1").value=""; document.getElementById("g2").value="";
+  render();
+}
+
+function calc(){
+  let stats = {};
+  players.forEach(p=> stats[p]={pts:0,w:0,d:0,l:0,gf:0,ga:0});
+  matches.forEach(m=>{
+    stats[m.a].gf+=m.ga; stats[m.a].ga+=m.gb;
+    stats[m.b].gf+=m.gb; stats[m.b].ga+=m.ga;
+    if(m.ga>m.gb){ stats[m.a].pts+=10; stats[m.a].w++; stats[m.b].l++; }
+    else if(m.gb>m.ga){ stats[m.b].pts+=10; stats[m.b].w++; stats[m.a].l++; }
+    else { stats[m.a].pts+=5; stats[m.b].pts+=5; stats[m.a].d++; stats[m.b].d++; }
+  });
+  // أعلى نتيجة = أكبر فرق أهداف في ماتش واحد
+  let maxDiff = 0, bonusWinner = null;
+  matches.forEach(m=>{
+    let diff = Math.abs(m.ga - m.gb);
+    if(diff>maxDiff && diff>0){ maxDiff=diff; bonusWinner = m.ga>m.gb ? m.a : m.b; }
+  });
+  if(bonusWinner) stats[bonusWinner].pts+=1;
+  let arr = players.map(p=>({name:p, ...stats[p], gd: stats[p].gf - stats[p].ga, bonus: p===bonusWinner}));
+  arr.sort((x,y)=> y.pts - x.pts || y.gd - x.gd || y.gf - x.gf);
+  return {arr, bonusWinner, maxDiff};
+}
+
+function render(){
+  const {arr, bonusWinner, maxDiff} = calc();
+  document.getElementById("ranking").innerHTML = arr.map((p,i)=>`
+    <tr><td>${i+1}</td><td>${p.name} ${p.bonus?'<span class="badge">🔥 أعلى نتيجة +1</span>':''}</td><td>تصنيف ${i+1}</td><td><b>${p.pts} نقطة</b></td><td>${p.w}</td><td>${p.d}</td><td>${p.l}</td><td>${p.gd>0?'+':''}${p.gd}</td></tr>
+  `).join("");
+
+  // عرض الماتشات متقسمة يوم أول / تاني
+  let html = "";
+  ["اليوم الأول","اليوم الثاني","اليوم الثالث"].forEach(day=>{
+    let list = matches.map((m,idx)=>({...m,idx})).filter(m=>m.day===day);
+    if(list.length){
+      html+=<h4>${day}</h4><table><tr><th>المباراة</th><th>النتيجة</th><th></th></tr>${list.map(m=><tr><td>${m.a} ضد ${m.b}</td><td><b>${m.ga} - ${m.gb}</b></td><td><span class="delete" onclick="del(${m.idx})">حذف</span></td></tr>).join("")}</table>;
+    }
+  });
+  document.getElementById("matches").innerHTML = html || "<p style='color:#aaa'>لسه مفيش ماتشات، ضيف أول نتيجة فوق</p>";
+}
+function del(i){ matches.splice(i,1); localStorage.setItem("matches",JSON.stringify(matches)); render(); }
+render();
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التصنيف</title>
+<style>
+  *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+  body{margin:0;background:#050a1f;padding:14px}
+  .ranking-wrap{
+    max-width:700px; margin:auto;
+    background: radial-gradient(ellipse at top, #1a2a55 0%, #0a1128 60%, #050a1f 100%);
+    border:2px solid #d4af37;
+    border-radius:20px;
+    padding:16px;
+    overflow:hidden;
+  }
+  .ranking-header{text-align:center;margin:6px 0 14px}
+  .ranking-header .t1{font-size:34px;font-weight:900;color:#e8c15a}
+  .ranking-header .t2{font-size:16px;color:#e8c15a;letter-spacing:1px}
+  .ranking-header .trophy{font-size:48px;display:block;margin:6px 0 0}
+  .ranking-table{width:100%;border-collapse:separate;border-spacing:0 6px}
+  .ranking-table th{
+    background:linear-gradient(90deg,#e8c15a,#d4af37);
+    color:#000; padding:12px 8px; font-size:17px; font-weight:900;
+  }
+  .ranking-table th:first-child{border-radius:0 12px 12px 0}
+  .ranking-table th:last-child{border-radius:12px 0 0 12px}
+  .ranking-table td{
+    background:#0a1633; color:#fff; padding:10px 8px;
+    border-top:1px solid #d4af3744; border-bottom:1px solid #d4af3744;
+    font-size:19px; font-weight:bold; text-align:center;
+  }
+  .ranking-table tr td:first-child{border-right:1px solid #d4af37; border-radius:0 12px 12px 0}
+  .ranking-table tr td:last-child{border-left:1px solid #d4af37; border-radius:12px 0 0 12px}
+  .ranking-table tr.rank-1 td{background:linear-gradient(90deg,#2a2100,#0a1633); color:#facc15}
+  .ranking-table tr.rank-1 td:first-child{background:#facc15; color:#000; font-size:22px}
+  .rank-badge{
+    background:#b8bcc2; color:#000; padding:4px 10px; border-radius:10px; font-size:14px; display:inline-block; min-width:80px;
+  }
+  .rank-1 .rank-badge, .rank-2 .rank-badge{background:#facc15}
+  .pts-input{
+    width:70px; height:40px; background:#0a1128; text-align:center;
+    border:1px solid #facc15; border-radius:8px; color:#facc15; font-size:18px; font-weight:bold;
+  }
+  .ranking-footer{text-align:center;color:#e8c15a;font-size:12px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<div class="ranking-wrap">
+  <div class="ranking-header">
+    <div class="t1">🏆 دوري الأبطال 🏆</div>
+    <div class="t2">— التصنيف - RANKING —</div>
+    <div class="trophy">🏆</div>
+  </div>
+
+  <table class="ranking-table">
+    <thead>
+      <tr><th>🏅</th><th>الترتيب</th><th>اللاعب</th><th>⭐</th><th>النقاط</th></tr>
+    </thead>
+    <tbody id="rankingBody"></tbody>
+  </table>
+
+  <div class="ranking-footer">موسم 2024 • تحديث مباشر • الترتيب الرسمي</div>
 </div>
 
-<div class="card">
-<h3>ماتشات المجموعة B - اليوم الاول</h3>
-<div class="match"><b>كريم</b><span class="score">VS</span><b>عمر</b></div>
-<div class="match"><b>لاعب 3</b><span class="score">VS</span><b>لاعب 4</b></div>
-<div class="match"><b>كريم</b><span class="score">VS</span><b>لاعب 3</b></div>
-<div class="match"><b>عمر</b><span class="score">VS</span><b>لاعب 5</b></div>
-<div class="match"><b>لاعب 4</b><span class="score">VS</span><b>لاعب 5</b></div>
-</div>
+<script>
+const players = ["محمد رمضان","كريم","محمد فتحي","عمر احمد تاج","يوسف صبري","ماهر","عمر","مصطفي"];
 
-<div class="card">
-<h3>ماتشات المجموعة B - اليوم التاني</h3>
-<div class="match"><b>كريم</b><span class="score">VS</span><b>لاعب 4</b></div>
-<div class="match"><b>عمر</b><span class="score">VS</span><b>لاعب 3</b></div>
-<div class="match"><b>كريم</b><span class="score">VS</span><b>لاعب 5</b></div>
-<div class="match"><b>عمر</b><span class="score">VS</span><b>لاعب 4</b></div>
-<div class="match"><b>لاعب 3</b><span class="score">VS</span><b>لاعب 5</b></div>
-</div>
+// انت بتتحكم في النقاط من هنا - او من المربع اللي جنب كل لاعب
+let rankingPoints = JSON.parse(localStorage.getItem('rankingPoints')||'{}');
+if(Object.keys(rankingPoints).length===0){
+  rankingPoints = {"محمد رمضان":11,"كريم":10,"محمد فتحي":0,"عمر احمد تاج":0,"يوسف صبري":0,"ماهر":0,"عمر":0,"مصطفي":0};
+}
 
-<div class="card">
-<h3>الادوار النهائية</h3>
-<div class="match"><b>ربع نهائي 1</b><span class="badge">يوم واحد</span><b>اول A VS رابع B</b></div>
-<div class="match"><b>ربع نهائي 2</b><span class="badge">يوم واحد</span><b>تاني A VS تالت B</b></div>
-<div class="match"><b>ربع نهائي 3</b><span class="badge">يوم واحد</span><b>تالت A VS تاني B</b></div>
-<div class="match"><b>ربع نهائي 4</b><span class="badge">يوم واحد</span><b>رابع A VS اول B</b></div>
-<div class="match"><b>نص نهائي 1</b><span class="badge">يوم واحد</span><b>كسبان 1 VS كسبان 3</b></div>
-<div class="match"><b>نص نهائي 2</b><span class="badge">يوم واحد</span><b>كسبان 2 VS كسبان 4</b></div>
-<div class="match"><b>تحديد التالت</b><span class="badge">الفاينل</span><b>خسران نص 1 VS خسران نص 2</b></div>
-<div class="match"><b>النهائي الكبير</b><span class="badge">الفاينل</span><b>كسبان نص 1 VS كسبان نص 2</b></div>
-</div>
+function renderRanking(){
+  // ترتيب تنازلي اوتوماتيك - الاعلي الاول
+  let arr = players.map(p=>({name:p, pts: rankingPoints[p]||0}))
+    .sort((a,b)=> b.pts - a.pts);
 
-<div class="card">
-<h3>كل اللاعيبة - 10 لاعيبة</h3>
-<div class="player"><span>1</span><b>محمد فتحي</b></div>
-<div class="player"><span>2</span><b>مصطفي</b></div>
-<div class="player"><span>3</span><b>ماهر</b></div>
-<div class="player"><span>4</span><b>كريم</b></div>
-<div class="player"><span>5</span><b>عمر</b></div>
-<div class="player"><span>6</span><b>لاعب 6 - لسه</b></div>
-<div class="player"><span>7</span><b>لاعب 7 - لسه</b></div>
-<div class="player"><span>8</span><b>لاعب 8 - لسه</b></div>
-<div class="player"><span>9</span><b>لاعب 9 - لسه</b></div>
-<div class="player"><span>10</span><b>لاعب 10 - لسه</b></div>
-</div>
+  document.getElementById('rankingBody').innerHTML = arr.map((r,idx)=>{
+    let rank = idx+1;
+    let icon = rank===1 ? '🏆' : rank===2 ? '🥈' : rank;
+    let rowClass = rank===1 ? 'rank-1' : rank===2 ? 'rank-2' : '';
+    return `<tr class="${rowClass}">
+      <td>${icon}</td>
+      <td>${rank}</td>
+      <td>${r.name}</td>
+      <td><span class="rank-badge">تصنيف ${rank}</span></td>
+      <td><input type="number" class="pts-input" value="${r.pts}" min="0" oninput="updateRanking('${r.name}', this.value)"> نقاط</td>
+    </tr>`;
+  }).join('');
+}
 
-<button class="btn">ابعت النتيجة للرئيس عبدالله رمضان</button>
-<div class="footer">بطولة دوري ابطال فيفا - النسخة التانية - تنظيم الرئيس عبدالله رمضان</div>
+function updateRanking(name, val){
+  rankingPoints[name] = parseInt(val||0);
+  localStorage.setItem('rankingPoints', JSON.stringify(rankingPoints));
+  renderRanking();
+}
+
+renderRanking();
+</script>
 </body>
 </html>
